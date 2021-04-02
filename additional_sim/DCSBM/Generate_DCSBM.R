@@ -17,7 +17,7 @@ generate_DCSBM <- function (df) {
     # Input G matrix
     G <- matrix(unlist(df$Graph), ncol = n)
     
-    k <- 3
+    k <- df$k
 
     # memberships of nodes
     m <- unlist(df$m)

@@ -10,8 +10,8 @@ run_simulations <- function (node, df_true, df_test, true_model, test_model, alp
   source("Return_Bootstrap_Statistic.R")
   model = test_model
   test <- return_bootstrap_statistic(df_test$node, result, model)
-  # reject = 1
-  #  if ( (test < qtw(1 - (alpha / 2))) && (test > qtw(alpha / 2)) ) {reject = 0}
-  return (test)
+  reject = 1
+  if ( (test < qtw(1 - (alpha / 2))) && (test > qtw(alpha / 2)) ) {reject = 0}
+  return (reject)
 }
 

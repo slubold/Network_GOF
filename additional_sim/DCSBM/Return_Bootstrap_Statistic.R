@@ -43,7 +43,7 @@ return_bootstrap_statistic <- function (n, df, model) {
     }
   }
   
-  if (model == "DCSBM") {
+  if (model == "DCSBM" || model == "DSBM") {
     for (i in 1:btsp) {
       G.btsp <- matrix(rep(0, n^2), ncol = n) 
       for (j in 1:n) {
@@ -74,7 +74,7 @@ return_bootstrap_statistic <- function (n, df, model) {
       G.btsp = unname(as.matrix.network.adjacency(g.btsp))
       
       A.btsp = (G.btsp - Phat) / sqrt( (n - 1) * Phat * (1 - Phat)) 
-      diag(A.btsp) = 0
+      diag(A.btsp) = rep(0, n)
       
       eig.btsp[1, j] = eigen(A.btsp)$values[1]; eig.btsp[2, j] = eigen(A.btsp)$values[n]
     }
@@ -128,12 +128,13 @@ return_bootstrap_statistic <- function (n, df, model) {
         }
         G.btsp = 1 * (Zhat + Ehat > 0)
         diag(G.btsp) = rep(0, n)
+        
+        A.btsp = (G.btsp - Phat) / sqrt( Phat * (1 - Phat))
+        diag(A.btsp) = rep(0, n)
+        
+        eig.btsp[1, i] = eigen(A.btsp %*% t(A.btsp))$values[1]
+        eig.btsp[2, i] = eigen(A.btsp %*% t(A.btsp))$values[n]
       }
-      A.btsp = (G.btsp - Phat) / sqrt( Phat * (1 - Phat))
-      diag(A.btsp) = rep(0, n)
-
-      eig.btsp[1, j] = eigen(A.btsp %*% t(A.btsp))$values[1]
-      eig.btsp[2, j] = eigen(A.btsp %*% t(A.btsp))$values[n]
       
       mu.max = mean(eig.btsp[1,])
       mu.min = mean(eig.btsp[2,])
