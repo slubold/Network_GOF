@@ -29,7 +29,7 @@ return_value = function(n, null, numSim){
   membership = rep(1:K, each=1/gamma_k)
   test = rep(0, n)
   test.complete = rep(0, n)
-  beta = 2
+  beta = 1
   
   
   for(index in 1:numSim){
