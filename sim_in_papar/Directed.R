@@ -26,6 +26,7 @@ directed_func <- function(n, null, numSim){
   test.boot = rep(0, numSim)
   
   for(i in 1:numSim){
+    eig = 
     G = matrix(as.numeric(runif(n^2, 0, 1)) < P, ncol = n)
     diag(G) = rep(0, n)
     
@@ -34,8 +35,9 @@ directed_func <- function(n, null, numSim){
     A = (G - pHat)/sqrt(pHat * (1 - pHat))
     diag(A) = rep(0, n)
     
-    test[i] = eigen(A %*% t(A))$values[n] * n  
-    test.TW2[i] = (eigen(A %*% t(A))$values[1] - 4 * n)/(2 * sqrt(n)  * (2 * sqrt(n))^(-1/3))
+    test[i] = sqrt(eigen(A %*% t(A))$values[n] * n)
+    test.TW2[i] = (eigen(A %*% t(A))$values[1] - (sqrt(n - 1) + sqrt(n))^2)/ ((sqrt(n - 1) + sqrt(n)) * (1 / sqrt(n - 1) + 1 / sqrt(n))^(1/3))
+    
     
     # Do bootstrapping 
     M = 100
