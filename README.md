@@ -16,3 +16,8 @@ This repository contains the code to reproduce the figures in the paper "Spectra
  2) "Other_Simulations": 
  - Degree-corrected stochastic block model 
  - Comparing the Erdos-Renyi model, stochastic block model, and beta-model.
+
+3) "Real_data_analysis": Analyzed data sets and error function
+- Political Blog data
+- Simmons College data
+- Caltech data
