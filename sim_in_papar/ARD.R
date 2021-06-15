@@ -1,22 +1,12 @@
 library(RMTstat)
 
+# Parameters in ARD sections
 gamma = 1/3
 n = 150
 beta = 1
 m = gamma * n
 numSim = 200
 test = rep(0, numSim)
-
-for(index in 1:numSim){
-  X = matrix(rnorm(m * n), ncol = m)
-  eigen(t(X) %*% X)$values
-  
-  mu = (sqrt(n + beta - 2) + sqrt(m))^2 
-  sigma = sqrt(mu) * (1/sqrt(n + beta - 2) + 1/sqrt(m))^(1/3)
-  
-  test[index] = (eigen(t(X) %*% X)$values[1] - mu)/sigma
-}
-mean(test > qtw(0.975, beta)) + mean(test < qtw(0.025, beta)) 
 
 # ARD for ER model
 return_value = function(n, null, numSim){
@@ -31,10 +21,7 @@ return_value = function(n, null, numSim){
   test.complete = rep(0, n)
   beta = 1
   
-  
   for(index in 1:numSim){
-    
-    print(index)
     
     # Generate ER model using pstar
     if(null ==  TRUE){
@@ -69,9 +56,7 @@ return_value = function(n, null, numSim){
     
     # A = (Y - pstar * 1/gamma_k)/sqrt(pstar * 1/gamma_k * (1 - pstar))
     A = (Y - pHat * (1 / gamma_k)) / sqrt(pHat * 1/gamma_k * (1 - pHat))
-# 
-#     In the description we have lim (m_n / n) = y \in (0, 1), otherwise sway m_n, n in the expression.
-#     mu = (sqrt(K + beta - 2) + sqrt(m))^2 # This is true only when beta = 2.
+
     mu = (sqrt(m + beta - 2) + sqrt(K))^2
     sigma = sqrt(mu) * (1/sqrt(m + beta - 2) + 1/sqrt(K))^(1/3)
     test[index] = (eigen(t(A) %*% A)$values[1] - mu)/sigma
@@ -84,6 +69,7 @@ return_value = function(n, null, numSim){
 
 n.vec = c(30, 60, 90)
 numOuter = 25
+
 values.true.ARD = matrix(rep(0, length(n.vec) * numOuter), ncol = numOuter)
 values.true.complete = matrix(rep(0, length(n.vec) * numOuter), ncol = numOuter)
 

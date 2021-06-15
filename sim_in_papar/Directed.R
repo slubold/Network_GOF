@@ -26,7 +26,6 @@ directed_func <- function(n, null, numSim){
   test.boot = rep(0, numSim)
   
   for(i in 1:numSim){
-    eig = 
     G = matrix(as.numeric(runif(n^2, 0, 1)) < P, ncol = n)
     diag(G) = rep(0, n)
     
@@ -41,7 +40,7 @@ directed_func <- function(n, null, numSim){
     
     # Do bootstrapping 
     M = 100
-    lambda.boot = matrix(rep(0, M ), ncol = 1)
+    lambda.boot = matrix(rep(0, M), ncol = 1)
     for(index.boot in 1:M){
       A.boot = matrix(rep(0, n^2), ncol = n)
       A.boot=  matrix(as.numeric(runif(n^2, 0, 1)) < pHat, ncol = n)
@@ -62,7 +61,7 @@ directed_func <- function(n, null, numSim){
 numOuter = 25
 numSim = 100
 null = "false"
-n_vec = c(25, 50, 100)
+n_vec = 100#c(25, 50, 100)
 reject.boot = matrix(rep(0, length(n_vec) * numOuter), ncol = numOuter)
 reject.exp = matrix(rep(0, length(n_vec) * numOuter), ncol = numOuter)
 reject.TW = matrix(rep(0, length(n_vec) * numOuter), ncol = numOuter)
@@ -71,13 +70,12 @@ for(indexN in 1:length(n_vec)){
   for(indexOuter in 1:numOuter){
     temp = directed_func(n_vec[indexN], null, numSim)
     temp.boot = temp[1:numSim]
-    temp.exp = temp[seq(from = numSim +1, to = 2 * numSim, by = 1)]
-    
-    temp.TW = temp[seq(from = 2*numSim +1, to = 3 * numSim, by = 1)]
-    
-    
+    temp.exp = temp[seq(from = numSim + 1, to = 2 * numSim, by = 1)]
+    temp.TW = temp[seq(from = 2 * numSim + 1, to = 3 * numSim, by = 1)]
     reject.boot[indexN, indexOuter] = mean(temp.boot > RMTstat::qtw(0.975)) + mean(temp.boot < RMTstat::qtw(0.025))
+    reject.exp[indexN, indexOuter] = mean(temp.exp > 1.644138) # 95% quantile of the exp-type distribution in Thm 4
     reject.TW[indexN, indexOuter] = mean(temp.TW > RMTstat::qtw(0.975)) + mean(temp.TW < RMTstat::qtw(0.025))
-    reject.exp[indexN, indexOuter] = mean(temp.exp > qexp(0.95))
   }
 }
+
+

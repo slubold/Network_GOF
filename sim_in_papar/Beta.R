@@ -1,15 +1,10 @@
 # Power test for Beta model with different link function.
 # MLE for Beta Model in diaconis paper, using fixed point method
+# n: network size
+# numSim: Number of simulations to run
+# generate: Input link function, "beta_exp", "beta_expit", and "non_par"
 
-library(tidyverse)
-library(mvtnorm)
-library(Rlab)
 library(RMTstat)
-library(stats)
-library(igraph)
-library(network)
-library(gridExtra)
-library(grid)
 
 # Type 1 error
 return_rejection = function(n, numSim, generate, alpha){

@@ -4,8 +4,8 @@ library(RMTstat)
 
 n = 100 # graph size
 numSim = 100 # number of simulations to estimate pHat
-numBoot = 500
-null = F
+numBoot = 500 # number of bootstrap iterates
+null = F # Decide which model to generate
 theta = c(-1, -0.5)
 
 # Generate the data 
@@ -71,9 +71,6 @@ TestNull <- function(theta, n, numBoot, numSim, null = F) {
   return(c(t_Phat, t_ERGM, MLE.fit$coef, difference))
 }
 
-values = TestNull(theta, n, numBoot, numSim, null)
-write.csv(values, "ERGMS_Null_TRUE.csv")
-
 Bootstrap_Phat = function(hatA, n, numBoot, Phat){
   
   eig <- c(eigen(hatA)$values[1], eigen(hatA)$values[n])
@@ -123,3 +120,7 @@ Bootstrap_ERGM = function(hatA, n, numBoot, Phat, MLE.fit){
                                                      -(eig[2] - mu.min)/sd.min)
   return(t)
 }
+
+values = TestNull(theta, n, numBoot, numSim, null)
+write.csv(values, "ERGMS_Null_TRUE.csv")
+

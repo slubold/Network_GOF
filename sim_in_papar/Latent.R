@@ -12,7 +12,7 @@ d.fit = c(1, 2, 3, 4)
 simul = 50
 # Final result
 final.res <- matrix(rep(0, 2 * simul * 4), nrow = 2)
-for (out in 1:1) {
+for (out in 1:2) {
   n = n.vec[out]
   J = diag(n) - (1 / n) * rep(1, n) %*% t(rep(1, n))
   for (inn in 1:4) {
