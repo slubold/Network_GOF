@@ -1,1 +1,1 @@
-These are the simulations presented in the paper. Name w.r.t. corresponding sections.
+These are the simulations presented in the paper.
