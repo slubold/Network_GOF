@@ -61,7 +61,7 @@ directed_func <- function(n, null, numSim){
 numOuter = 25
 numSim = 100
 null = "false"
-n_vec = 100#c(25, 50, 100)
+n_vec = c(25, 50, 100)
 reject.boot = matrix(rep(0, length(n_vec) * numOuter), ncol = numOuter)
 reject.exp = matrix(rep(0, length(n_vec) * numOuter), ncol = numOuter)
 reject.TW = matrix(rep(0, length(n_vec) * numOuter), ncol = numOuter)
